@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   computerv1.cpp                                     :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 15:00:00 by tferrari          #+#    #+#             */
-/*   Updated: 2017/08/23 13:16:12 by tferrari         ###   ########.fr       */
+/*   Updated: 2017/08/26 17:31:27 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <string>
+#include "computerv1.hpp"
 
-using namespace std;
+// using namespace std;
 
-int main()
+int main(int argc, char **argv)
 {
-	int		nb1;
-	int		nb2;
+	Equation test;
 
-    cout << "nombre 1 ?" << endl;
-	cin >> nb1;
-	// cin.ignore();
-	cout << "nombre 2" << endl;
-	cin >> nb2;
-	// getline(cin, nom);
-	cout << "resultat addition = " << nb1 + nb2 << endl;
-    return 0;
+	switch (argc)
+	{
+		case 1 :
+			cout << "no equation enter !!!" << endl;
+			break;
+		case 2 :
+			test.ecrire(test, 2);
+			break;
+		case 3 :
+			cout << "too many argument !!!!" << endl;
+			break;
+	}
+	return 0;
 }
