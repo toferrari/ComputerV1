@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 12:07:15 by tferrari          #+#    #+#             */
-/*   Updated: 2017/08/26 17:40:27 by tferrari         ###   ########.fr       */
+/*   Updated: 2017/08/26 17:44:02 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 Equation::Equation()
 {
 	la = 3;
-	lb = 6;
+	lb = 5;
 	lc = 3;
 	ra = 0;
 	rb = 0;
@@ -70,6 +70,8 @@ void		Equation::ecrire(Equation equa, int degre)
 		else if (disc == 0)
 			cout << "Discriminant equals zero, the only one solution is :",
 			cout << endl << "x = " << discriment_zero(equa.la, equa.lb) << endl;
+		else if (disc < 0)
+			cout << "Discriminant is strictly negative, no solution !!" << endl;
 	}
 	else if (degre > 2)
 		cout << "Polynomial degree: 3" << endl << "The polynomial degree is"
