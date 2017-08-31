@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 18:05:46 by tferrari          #+#    #+#             */
-/*   Updated: 2017/08/26 17:39:32 by tferrari         ###   ########.fr       */
+/*   Updated: 2017/08/31 18:32:31 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <iostream>
 #include <string>
 #include <math.h>
+#include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -24,6 +26,11 @@ class Equation
 public:
 
 	Equation();
+	int			check_nb(string str, Equation equa, int lr);
+	int			check_time(string str, Equation equa, int lr);
+	int			check_x(string str, Equation equa, int lr);
+	int			check_transition(string str, Equation equa, int lr);
+	int			parse(Equation equa, string str);
 	int			discriment(int a, int b, int c);
 	int			unknow(int a, int b);
 	int			discriment_r1(int a, int b, int disc);
@@ -33,13 +40,16 @@ public:
 
 private:
 
-	int			la;
-	int			lb;
-	int			lc;
-	int			ra;
-	int			rb;
-	int			rc;
+	double		la;
+	double		lb;
+	double		lc;
+	double		ra;
+	double		rb;
+	double		rc;
+	int			signe;
 	int			degre;
+	int			rdegre;
+	int			ldegre;
 	int			disc;
 	int			r1;
 	int			r2;
