@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 18:05:46 by tferrari          #+#    #+#             */
-/*   Updated: 2017/08/31 18:32:31 by tferrari         ###   ########.fr       */
+/*   Updated: 2017/09/01 14:58:11 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 #include <math.h>
 #include <sstream>
 #include <vector>
+#include <stdlib.h>
+#include <stdio.h>
+
+#define DEGRE		equa.degre
+#define TMP			equa.tmp
 
 using namespace std;
 
@@ -27,7 +32,7 @@ public:
 
 	Equation();
 	int			check_nb(string str, Equation equa, int lr);
-	int			check_time(string str, Equation equa, int lr);
+	int			check_star(string str, Equation equa, int lr);
 	int			check_x(string str, Equation equa, int lr);
 	int			check_transition(string str, Equation equa, int lr);
 	int			parse(Equation equa, string str);
@@ -46,6 +51,7 @@ private:
 	double		ra;
 	double		rb;
 	double		rc;
+	double		tmp;
 	int			signe;
 	int			degre;
 	int			rdegre;

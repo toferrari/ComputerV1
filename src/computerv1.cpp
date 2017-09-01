@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 12:07:15 by tferrari          #+#    #+#             */
-/*   Updated: 2017/08/31 18:37:26 by tferrari         ###   ########.fr       */
+/*   Updated: 2017/09/01 15:39:39 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,32 +38,56 @@ std::vector<std::string>& explode(const std::string& str, std::vector<std::strin
 
 int			Equation::check_nb(string str, Equation equa, int lr)
 {
-	int	i;
+	cout << str << endl;
+	int		i;
 
 	i = -1;
+	DEGRE += 1;
 	while (str[++i])
 		if (!isdigit(str[i]) && str[i] != '.')
 			return (0);
-	if (lr == 1)
-	{
-		
-	}
+	TMP = atof(str.c_str());
+	printf("tmp = %f\n", TMP);
 	return (1);
 }
 
-int			Equation::check_time(string str, Equation equa, int lr)
+int			Equation::check_star(string str, Equation equa, int lr)
 {
 	cout << str << endl;
-
+	if (str[0] != '*' || str[1])
+		return (0);
 	return (1);
 }
 
 int			Equation::check_x(string str, Equation equa, int lr)
 {
 	int deg;
+	printf("tmp = %f\n", TMP);
 
-	cout << str << endl;
 	deg = (lr == 1) ? equa.ldegre : equa.rdegre;
+	if (str[2] != DEGRE + '0')
+		cout << "str = " << str[2] << " degre = " << DEGRE << endl;
+	if (str[0] != 'X' || str[1] != '^' || !isdigit(str[2]) || str[3])
+		return (0);
+	cout << str << endl;
+	if (lr == 1)
+	{
+		if (DEGRE == 0)
+			lc = TMP;
+		else if (DEGRE == 1)
+			lb = TMP;
+		else if (DEGRE == 2)
+			la = TMP;
+	}
+	else
+	{
+		if (DEGRE == 0)
+			rc = TMP;
+		else if (DEGRE == 1)
+			rb = TMP;
+		else if (DEGRE == 2)
+			ra = TMP;
+	}
 	// if (str[0] != 'X')
 	// 	return (0);
 	return (1);
@@ -92,7 +116,7 @@ int			Equation::parse(Equation equa, string str)
 		j = 0;
 		while (tab[i][j] && tab[i][j] != '=')
 		{
-			if (!equa.check_nb(tab[i], equa, 1) || !check_time(tab[++i], equa, 1)
+			if (!equa.check_nb(tab[i], equa, 1) || !check_star(tab[++i], equa, 1)
 			|| !check_x(tab[++i], equa, 1) || !check_transition(tab[++i], equa, 1))
 				return (0);
 			i++;
@@ -101,10 +125,11 @@ int			Equation::parse(Equation equa, string str)
 			return (0);
 		while (tab[++i][0])
 		{
-			if (!equa.check_nb(tab[i], equa, 2) || !check_time(tab[++i], equa, 2)
-			|| !check_x(tab[++i], equa, 2) || !check_transition(tab[++i], equa, 2))
+			if (!equa.check_nb(tab[i], equa, 2) || !check_star(tab[++i], equa, 2)
+			|| !check_x(tab[++i], equa, 2))
 				return (0);
 		}
+		printf("tesst\n");
 		equa.degre = (equa.ldegre > equa.rdegre) ? equa.ldegre : equa.rdegre;
 		equa.ecrire(equa, equa.degre);
 	}
