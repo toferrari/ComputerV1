@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 18:05:46 by tferrari          #+#    #+#             */
-/*   Updated: 2017/09/01 14:58:11 by tferrari         ###   ########.fr       */
+/*   Updated: 2017/09/05 16:02:33 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,16 @@ class Equation
 public:
 
 	Equation();
-	int			check_nb(string str, Equation equa, int lr);
-	int			check_star(string str, Equation equa, int lr);
-	int			check_x(string str, Equation equa, int lr);
-	int			check_transition(string str, Equation equa, int lr);
-	int			parse(Equation equa, string str);
-	int			discriment(int a, int b, int c);
-	int			unknow(int a, int b);
-	int			discriment_r1(int a, int b, int disc);
-	int			discriment_r2(int a, int b, int disc);
-	int			discriment_zero(int a, int b);
-	void		ecrire(Equation test, int degre);
+	int				check_nb(string str, int lr);
+	int				check_star(string str, int lr, int *i);
+	int				check_x(string str, int lr, int *i);
+	int				check_transition(string str, int lr);
+	double			discriment(double a, double b, double c);
+	double			unknow(double a, double b);
+	double			discriment_r1(double a, double b, double disc);
+	double			discriment_r2(double a, double b, double disc);
+	double			discriment_zero(double a, double b);
+	void			ecrire();
 
 private:
 
@@ -56,9 +55,9 @@ private:
 	int			degre;
 	int			rdegre;
 	int			ldegre;
-	int			disc;
-	int			r1;
-	int			r2;
+	double		disc;
+	double		r1;
+	double		r2;
 };
 
 #endif

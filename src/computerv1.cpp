@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 12:07:15 by tferrari          #+#    #+#             */
-/*   Updated: 2017/09/01 15:39:39 by tferrari         ###   ########.fr       */
+/*   Updated: 2017/09/05 18:16:22 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ Equation::Equation()
 	rb = 0;
 	rc = 0;
 	disc = 0;
-	degre = 0;
+	degre = -1;
 	ldegre = -1;
 	rdegre = -1;
 	signe = 1;
@@ -29,159 +29,128 @@ Equation::Equation()
 	r2 = 0;
 }
 
-std::vector<std::string>& explode(const std::string& str, std::vector<std::string> &tokens)
+int			Equation::check_nb(string str, int lr)
 {
-    std::istringstream split(str); // flux d'exatraction sur un std::string
-    for (std::string each; std::getline(split, each, ' '); tokens.push_back(each));
-    return tokens;
-}
-
-int			Equation::check_nb(string str, Equation equa, int lr)
-{
-	cout << str << endl;
 	int		i;
 
 	i = -1;
-	DEGRE += 1;
+	if (lr == 1)
+		ldegre += 1;
+	else
+		rdegre +=1;
 	while (str[++i])
 		if (!isdigit(str[i]) && str[i] != '.')
 			return (0);
-	TMP = atof(str.c_str());
-	printf("tmp = %f\n", TMP);
+	tmp = atof(str.c_str()) * signe;
+	signe = 1;
 	return (1);
 }
 
-int			Equation::check_star(string str, Equation equa, int lr)
+int			Equation::check_star(string str, int lr, int *i)
 {
-	cout << str << endl;
+	if (((ldegre == 0 || rdegre == 0) && (str[0] == '+' || str[0] == '-')) ||
+	(rdegre == 0 && str[0] == '\0'))
+	{
+		(*i)--;
+		return (1);
+	}
 	if (str[0] != '*' || str[1])
 		return (0);
 	return (1);
 }
 
-int			Equation::check_x(string str, Equation equa, int lr)
+int			Equation::check_x(string str, int lr, int *i)
 {
 	int deg;
-	printf("tmp = %f\n", TMP);
 
-	deg = (lr == 1) ? equa.ldegre : equa.rdegre;
-	if (str[2] != DEGRE + '0')
-		cout << "str = " << str[2] << " degre = " << DEGRE << endl;
-	if (str[0] != 'X' || str[1] != '^' || !isdigit(str[2]) || str[3])
-		return (0);
-	cout << str << endl;
+	deg = (lr == 1) ? ldegre : rdegre;
+	if ((deg == 0 && (str[0] == '+' || str[0] == '-')) ||
+	(rdegre == 0 && str[0] == '\0'))
+		(*i)--;
+	else if (str[0] != 'X' || str[1] != '^' || !isdigit(str[2]) || str[3])
+		if (!(str[0] == 'X' && str[1] == '\0'))
+			return (0);
 	if (lr == 1)
 	{
-		if (DEGRE == 0)
-			lc = TMP;
-		else if (DEGRE == 1)
-			lb = TMP;
-		else if (DEGRE == 2)
-			la = TMP;
+		if (ldegre == 0)
+			lc = tmp;
+		else if (ldegre == 1)
+			lb = tmp;
+		else if (ldegre == 2)
+			la = tmp;
 	}
 	else
 	{
-		if (DEGRE == 0)
-			rc = TMP;
-		else if (DEGRE == 1)
-			rb = TMP;
-		else if (DEGRE == 2)
-			ra = TMP;
+		if (rdegre == 0)
+			rc = tmp;
+		else if (rdegre == 1)
+			rb = tmp;
+		else if (rdegre == 2)
+			ra = tmp;
 	}
-	// if (str[0] != 'X')
-	// 	return (0);
+	// cout << str[2] << endl;
 	return (1);
 }
 
-int			Equation::check_transition(string str, Equation equa, int lr)
+int			Equation::check_transition(string str, int lr)
 {
-	cout << str << endl;
 	if (str[0] == '=' && str[1] == '\0')
 		return (1);
 	else if ((str[0] == '+' || str[0] == '-') && str[1] == '\0')
+	{
+		if (str[0] == '-')
+			signe = -1;
 		return (1);
+	}
 	return (0);
 }
 
-int			Equation::parse(Equation equa, string str)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	std::vector<std::string> tab;
-	tab = explode(str, tab);
-	while (tab[++i][0])
-	{
-		j = 0;
-		while (tab[i][j] && tab[i][j] != '=')
-		{
-			if (!equa.check_nb(tab[i], equa, 1) || !check_star(tab[++i], equa, 1)
-			|| !check_x(tab[++i], equa, 1) || !check_transition(tab[++i], equa, 1))
-				return (0);
-			i++;
-		}
-		if (tab[i][0] == '\0')
-			return (0);
-		while (tab[++i][0])
-		{
-			if (!equa.check_nb(tab[i], equa, 2) || !check_star(tab[++i], equa, 2)
-			|| !check_x(tab[++i], equa, 2))
-				return (0);
-		}
-		printf("tesst\n");
-		equa.degre = (equa.ldegre > equa.rdegre) ? equa.ldegre : equa.rdegre;
-		equa.ecrire(equa, equa.degre);
-	}
-	return (1);
-}
-
-int			Equation::discriment(int a, int b, int c)
+double			Equation::discriment(double a, double b, double c)
 {
 	return ((b * b) - (4 * a * c));
 }
 
-int			Equation::unknow(int a, int b)
+double			Equation::unknow(double c, double b)
 {
-	return ((-b) / a);
+	printf ("a = %f, b = %f, res = %f\n", c, -b, (-b) / c);
+	return ((-b) / c);
 }
 
-int			Equation::discriment_r1(int a, int b, int disc)
+double			Equation::discriment_r1(double a, double b, double disc)
 {
 	return ((-b - sqrt(disc)) / (2 * a));
 }
 
-int			Equation::discriment_r2(int a, int b, int disc)
+double			Equation::discriment_r2(double a, double b, double disc)
 {
 	return ((-b + sqrt(disc)) / (2 * a));
 }
 
-int			Equation::discriment_zero(int a, int b)
+double			Equation::discriment_zero(double a, double b)
 {
 	return ((-b) / (2 * a));
 }
 
-void		Equation::ecrire(Equation equa, int degre)
+void		Equation::ecrire()
 {
-	int disc;
-
+	degre = (ldegre > rdegre) ? ldegre : rdegre;
 	if (degre == 0)
 		cout << "lol???" << endl;
 	else if (degre == 1)
 		cout << "Polynomial degree: 1" << endl << "The solution is:" << endl,
-		cout << "x = " << unknow(la, lb) << endl;
+		cout << "x = " << unknow(lc - rc, lb - rb) << endl;
 	else if (degre == 2)
 	{
 		cout << "Polynomial degree: 2" << endl << "The solution is:" << endl;
-		disc = discriment(equa.la, equa.lb, equa.lc);
+		disc = discriment(la - ra, lb - rb, lc - rc);
 		if (disc > 0)
 			cout << "Discriminant is strictly positive, the two solutions are:",
-			cout << endl << "x1 = " << discriment_r1(equa.la, equa.lb, disc),
-			cout << endl << "x2 = " << discriment_r2(equa.la, equa.lb, disc),
+			cout << endl << "x1 = " << discriment_r1(la - ra, lb - rb, disc),
+			cout << endl << "x2 = " << discriment_r2(la - ra, lb - rb, disc),
 			cout << endl;
 		else if (disc == 0)
 			cout << "Discriminant equals zero, the only one solution is :",
-			cout << endl << "x = " << discriment_zero(equa.la, equa.lb) << endl;
+			cout << endl << "x = " << discriment_zero(la - ra, lb - rb) << endl;
 		else if (disc < 0)
 			cout << "Discriminant is strictly negative, no solution !!" << endl;
 	}
