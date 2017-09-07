@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 18:05:46 by tferrari          #+#    #+#             */
-/*   Updated: 2017/09/05 16:02:33 by tferrari         ###   ########.fr       */
+/*   Updated: 2017/09/07 18:05:02 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define DEGRE		equa.degre
-#define TMP			equa.tmp
+# define ABS(x) (x < 0) ? -x : x
 
 using namespace std;
 
@@ -40,6 +39,9 @@ public:
 	double			discriment_r1(double a, double b, double disc);
 	double			discriment_r2(double a, double b, double disc);
 	double			discriment_zero(double a, double b);
+	void			prt_nb(int degre);
+	int				bonus(string str);
+	void			reduc();
 	void			ecrire();
 
 private:
@@ -55,6 +57,7 @@ private:
 	int			degre;
 	int			rdegre;
 	int			ldegre;
+	int			show;
 	double		disc;
 	double		r1;
 	double		r2;
