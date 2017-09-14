@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 12:07:15 by tferrari          #+#    #+#             */
-/*   Updated: 2017/09/07 19:51:17 by tferrari         ###   ########.fr       */
+/*   Updated: 2017/09/14 12:11:14 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,11 +141,23 @@ double			Equation::unknow(double c, double b)
 
 double			Equation::discriment_r1(double a, double b, double disc)
 {
+	if (show == 1)
+	{
+		printf("\033[4m-b -√(Δ)\033[0m\n	2a\n");
+		printf("x1 = \033[4m-(%f) -√(%f)\033[0m\n	2 * %f\n", b, disc, a);
+		printf("x1 = ");
+	}
 	return ((-b - sqrt(disc)) / (2 * a));
 }
 
 double			Equation::discriment_r2(double a, double b, double disc)
 {
+	if (show == 1)
+	{
+		printf("\033[4m-b +√(Δ)\033[0m\n	2a\n");
+		printf("x2 = \033[4m-(%f) +√(%f)\033[0m\n	2 * %f\n", b, disc, a);
+		printf("x2 = ");
+	}
 	return ((-b + sqrt(disc)) / (2 * a));
 }
 
@@ -203,7 +215,7 @@ void			Equation::ecrire()
 		if (disc > 0)
 			cout << "Discriminant is strictly positive, the two solutions are:",
 			cout << endl << "x1 = " << discriment_r1(la , lb , disc),
-			cout << endl << "x2 = " << discriment_r2(la , lb , disc),
+			cout << "\n\n" << "x2 = " << discriment_r2(la , lb , disc),
 			cout << endl;
 		else if (disc == 0)
 			cout << "Discriminant equals zero, the only one solution is :",
