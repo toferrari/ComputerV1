@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/08/23 14:52:21 by tferrari          #+#    #+#              #
-#    Updated: 2017/08/23 14:57:32 by tferrari         ###   ########.fr        #
+#    Created: 2017/09/14 18:04:02 by tferrari          #+#    #+#              #
+#    Updated: 2017/09/14 18:09:31 by tferrari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = computerv1
 
 SRC_DIR = src
 
-SRC_FILE =	computerv1.c
+SRC_FILE =	computerv1.cpp
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILE))
 
@@ -32,7 +32,7 @@ $(NAME): $(OBJS)
 
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
-	@g++ -Wall -Werror -Wextra $(INC) -o $@ -c $<
+	@g++ -Wall -Werror -Wextra $(INC) -o $@ -cpp $<
 	@echo "Fichier" $< "recompilé."
 
 clean:
@@ -41,6 +41,6 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "\033[31mComputerv1 supprimé\033[0m"
+	@echo "\033[31mcomputerv1 supprimé\033[0m"
 
 re: fclean all
