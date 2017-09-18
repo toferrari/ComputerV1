@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 12:07:15 by tferrari          #+#    #+#             */
-/*   Updated: 2017/09/14 12:11:14 by tferrari         ###   ########.fr       */
+/*   Updated: 2017/09/18 17:26:16 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int			Equation::check_nb(string str, int lr)
 	return (1);
 }
 
-int			Equation::check_star(string str, int lr, int *i)
+int			Equation::check_star(string str, int *i)
 {
-	if (((ldegre == 0 || rdegre == 0) && (str[0] == '+' || str[0] == '-')) ||
+	if (((ldegre == 0 || rdegre == 0) && (str[0] == '+' || str[0] == '-' || str[0] == '=')) ||
 	(rdegre == 0 && str[0] == '\0'))
 	{
 		(*i)--;
@@ -74,7 +74,7 @@ int			Equation::check_x(string str, int lr, int *i)
 	int deg;
 
 	deg = (lr == 1) ? ldegre : rdegre;
-	if ((deg == 0 && (str[0] == '+' || str[0] == '-')) ||
+	if ((deg == 0 && (str[0] == '+' || str[0] == '-' || str[0] == '=')) ||
 	(rdegre == 0 && str[0] == '\0'))
 		(*i)--;
 	else if (str[0] != 'X' || str[1] != '^' || !isdigit(str[2]) || str[3])

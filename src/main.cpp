@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 15:00:00 by tferrari          #+#    #+#             */
-/*   Updated: 2017/09/07 18:08:38 by tferrari         ###   ########.fr       */
+/*   Updated: 2017/09/18 17:16:43 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		parse(string str, Equation equa)
 		j = 0;
 		while (tab[i][j] && tab[i][j] != '=')
 		{
-			if (!equa.check_nb(tab[i], 1) || !equa.check_star(tab[++i], 1, &i)
+			if (!equa.check_nb(tab[i], 1) || !equa.check_star(tab[++i], &i)
 			|| !equa.check_x(tab[++i], 1, &i) || !equa.check_transition(tab[++i], 1))
 				return (error("not well formatted"));
 			if (tab[i][j] && tab[i][j] != '=')
@@ -48,7 +48,7 @@ int		parse(string str, Equation equa)
 			return (0);
 		while (tab[++i][0])
 		{
-			if (!equa.check_nb(tab[i], 2) || !equa.check_star(tab[++i], 2, &i)
+			if (!equa.check_nb(tab[i], 2) || !equa.check_star(tab[++i], &i)
 			|| !equa.check_x(tab[++i], 2, &i)|| !equa.check_transition(tab[++i], 2))
 				return (error("not well formatted"));
 		}
@@ -64,7 +64,7 @@ int		main(int argc, char **argv)
 	int			i;
 
 	i = 1;
-	if (argc == 1)
+	if (argc == 1 || (argc == 2 && argv[1][0] == '\0'))
 		return (error("no equation enter !!!"));
 	while (++i < argc)
 		if (!equa.bonus(argv[i]))

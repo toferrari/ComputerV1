@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 18:05:46 by tferrari          #+#    #+#             */
-/*   Updated: 2017/09/07 18:05:02 by tferrari         ###   ########.fr       */
+/*   Updated: 2017/09/18 16:33:51 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ public:
 
 	Equation();
 	int				check_nb(string str, int lr);
-	int				check_star(string str, int lr, int *i);
+	int				check_star(string str, int *i);
 	int				check_x(string str, int lr, int *i);
 	int				check_transition(string str, int lr);
 	double			discriment(double a, double b, double c);
