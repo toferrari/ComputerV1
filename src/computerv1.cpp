@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 12:07:15 by tferrari          #+#    #+#             */
-/*   Updated: 2017/09/18 17:26:16 by tferrari         ###   ########.fr       */
+/*   Updated: 2017/09/18 17:36:04 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ void			Equation::prt_nb(int degre)
 		else if (lb < 0 && degre == 2)
 			cout << "- ";
 		tmp = ABS(lb);
-		cout << lb << " * X";
+		cout << lb << " * X = 0\n";
 	}
 	if (lc != 0)
 	{
@@ -206,7 +206,7 @@ void			Equation::ecrire()
 	if (degre > 0)
 		prt_nb(degre);
 	if ((degre == 1 && lb != 0) || (degre == 2 && la == 0))
-		cout << "Polynomial degree: 1" << endl << "The solution is:" << endl,
+		cout << "Polynomial degree: 1\nThe solution is:\n",
 		cout << "x = " << unknow(lc , lb) << endl;
 	else if (degre == 2)
 	{
@@ -221,11 +221,11 @@ void			Equation::ecrire()
 			cout << "Discriminant equals zero, the only one solution is :",
 			cout << endl << "x = " << discriment_zero(la , lb) << endl;
 		else if (disc < 0)
-			cout << "Discriminant is strictly negative, no solution !!" << endl;
+			cout << "Discriminant is strictly negative, no solution !!\n";
 	}
 	else if (degre > 2)
-		cout << "Polynomial degree: 3" << endl << "The polynomial degree is"
-		"stricly greater than 2, I can't solve." << endl;
+		cout << "Polynomial degree: 3\nThe polynomial degree is"
+		"stricly greater than 2, I can't solve.\n";
 	else
-		cout << "lol???" << endl;
+		cout << "lol???\n";
 }
