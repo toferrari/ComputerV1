@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 18:05:46 by tferrari          #+#    #+#             */
-/*   Updated: 2017/09/18 16:33:51 by tferrari         ###   ########.fr       */
+/*   Updated: 2017/09/28 16:01:21 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define ABS(x) (x < 0) ? -x : x
 
 using namespace std;
+
+double				ft_sqrt(double nb);
 
 class Equation
 {

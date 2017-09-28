@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 12:07:15 by tferrari          #+#    #+#             */
-/*   Updated: 2017/09/18 17:36:04 by tferrari         ###   ########.fr       */
+/*   Updated: 2017/09/28 16:16:18 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ double			Equation::discriment_r1(double a, double b, double disc)
 		printf("x1 = \033[4m-(%f) -√(%f)\033[0m\n	2 * %f\n", b, disc, a);
 		printf("x1 = ");
 	}
-	return ((-b - sqrt(disc)) / (2 * a));
+	return ((-b - ft_sqrt(disc)) / (2 * a));
 }
 
 double			Equation::discriment_r2(double a, double b, double disc)
@@ -158,7 +158,7 @@ double			Equation::discriment_r2(double a, double b, double disc)
 		printf("x2 = \033[4m-(%f) +√(%f)\033[0m\n	2 * %f\n", b, disc, a);
 		printf("x2 = ");
 	}
-	return ((-b + sqrt(disc)) / (2 * a));
+	return ((-b + ft_sqrt(disc)) / (2 * a));
 }
 
 double			Equation::discriment_zero(double a, double b)
@@ -187,7 +187,7 @@ void			Equation::prt_nb(int degre)
 		else if (lb < 0 && degre == 2)
 			cout << "- ";
 		tmp = ABS(lb);
-		cout << lb << " * X = 0\n";
+		cout << lb << " * X";
 	}
 	if (lc != 0)
 	{
@@ -196,7 +196,7 @@ void			Equation::prt_nb(int degre)
 		else
 			cout << " - ";
 		tmp = ABS(lc);
-		cout << lc << " = 0" << endl;
+		cout << tmp << " = 0" << endl;
 	}
 }
 
@@ -215,8 +215,7 @@ void			Equation::ecrire()
 		if (disc > 0)
 			cout << "Discriminant is strictly positive, the two solutions are:",
 			cout << endl << "x1 = " << discriment_r1(la , lb , disc),
-			cout << "\n\n" << "x2 = " << discriment_r2(la , lb , disc),
-			cout << endl;
+			cout << "\n\n" << "x2 = " << discriment_r2(la , lb , disc) << endl;
 		else if (disc == 0)
 			cout << "Discriminant equals zero, the only one solution is :",
 			cout << endl << "x = " << discriment_zero(la , lb) << endl;
