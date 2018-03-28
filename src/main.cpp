@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 15:00:00 by tferrari          #+#    #+#             */
-/*   Updated: 2017/09/28 16:15:53 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/03/28 16:23:11 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int		main(int argc, char **argv)
 	while (++i < argc)
 		if (!equa.bonus(argv[i]))
 			return (error("bad bonus"));
+	// Commande regexpour le parsing (!!! 1 = 0) non traité.
+	// (-?)([0-9]+(( ?\* ?)?(x(\^[0-2])?)?( [+-] ?)?))+( ?= ?)([0-9]+(( ?\* ?)?(x(\^[0-2])?)?( [+-] ?)?))+
 	parse(argv[1], equa);
 	return (0);
 
