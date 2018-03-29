@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 18:05:46 by tferrari          #+#    #+#             */
-/*   Updated: 2017/09/28 16:01:21 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/03/29 16:13:37 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@
 #include <vector>
 #include <stdlib.h>
 #include <stdio.h>
+#include <regex>
 
 # define ABS(x) (x < 0) ? -x : x
+# define INPUT_EQUA "(( ?[-+] ?)?([0-9]+(( ?\\* ?)?([xX](\\^[0-2])?)?)))+"
+# define INPUT_EQUAL "( ?= ?)"
+# define INPUT_WRONG "([0-9]+( ?= ?)[0-9]+)"
 
 using namespace std;
 

@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 15:00:00 by tferrari          #+#    #+#             */
-/*   Updated: 2018/03/28 16:23:11 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/03/29 16:17:58 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,24 @@ int		main(int argc, char **argv)
 {
 	Equation	equa;
 	int			i;
+	string		reg;
+	// regex		reg;
 
 	i = 1;
-	if (argc == 1 || (argc == 2 && argv[1][0] == '\0'))
+	reg = string(INPUT_EQUA) + string(INPUT_EQUAL) + string(INPUT_EQUA);
+	if (argc == 1 || (argc >= 2 && argv[1][0] == '\0'))
 		return (error("no equation enter !!!"));
-	while (++i < argc)
-		if (!equa.bonus(argv[i]))
-			return (error("bad bonus"));
-	// Commande regexpour le parsing (!!! 1 = 0) non traité.
-	// (-?)([0-9]+(( ?\* ?)?(x(\^[0-2])?)?( [+-] ?)?))+( ?= ?)([0-9]+(( ?\* ?)?(x(\^[0-2])?)?( [+-] ?)?))+
-	parse(argv[1], equa);
+	if (!regex_match(argv[1], regex(reg)) ||
+		regex_match(argv[1], regex(INPUT_WRONG)))
+		cout << "wrong" << endl;
+	else
+		cout << "ok" << endl;
+
+	// cout << boolalpha << ret << endl;
+	// while (++i < argc)
+	// 	if (!equa.bonus(argv[i]))
+	// 		return (error("bad bonus"));
+	// parse(argv[1], equa);
 	return (0);
 
 }
