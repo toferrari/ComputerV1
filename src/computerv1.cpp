@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 12:07:15 by tferrari          #+#    #+#             */
-/*   Updated: 2017/09/28 16:16:18 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/03/30 17:01:00 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,12 @@
 
 Equation::Equation()
 {
-	la = 0;
-	lb = 0;
-	lc = 0;
-	ra = 0;
-	rb = 0;
-	rc = 0;
+	a = 0;
+	b = 0;
+	c = 0;
+	equal = 0;
 	disc = 0;
 	degre = -1;
-	ldegre = -1;
-	rdegre = -1;
 	signe = 1;
 	show = 0;
 	r1 = 0;
@@ -32,88 +28,26 @@ Equation::Equation()
 
 int			Equation::bonus(string str)
 {
-	if (str[0] == '-' && str[1] == 's')
+	if (str.find("-s"))
 		show = 1;
 	return (1);
 }
 
-int			Equation::check_nb(string str, int lr)
+void			Equation::extrac(string *str)
 {
-	int		i;
+	int		tmp;
+	int		len;
 
-	i = -1;
-	if (lr == 1)
-		ldegre += 1;
-	else
-		rdegre +=1;
-	if (str[0] == '-')
-		i++;
-	while (str[++i])
-		if (!isdigit(str[i]) && str[i] != '.')
-			return (0);
-	tmp = atof(str.c_str()) * signe;
-	signe = 1;
-	return (1);
+	tmp = atoi((*str).c_str());
+	len = to_string(tmp).length();
+	len += ((*str).find("-") == 0 && tmp == 0) ? 1 : 0;
+	(*str).erase(0, len);
+	cout << *str << endl;
 }
 
-int			Equation::check_star(string str, int *i)
+void			Equation::up_equal()
 {
-	if (((ldegre == 0 || rdegre == 0) && (str[0] == '+' || str[0] == '-' || str[0] == '=')) ||
-	(rdegre == 0 && str[0] == '\0'))
-	{
-		(*i)--;
-		return (1);
-	}
-	if (str[0] != '*' || str[1])
-		return (0);
-	return (1);
-}
-
-int			Equation::check_x(string str, int lr, int *i)
-{
-	int deg;
-
-	deg = (lr == 1) ? ldegre : rdegre;
-	if ((deg == 0 && (str[0] == '+' || str[0] == '-' || str[0] == '=')) ||
-	(rdegre == 0 && str[0] == '\0'))
-		(*i)--;
-	else if (str[0] != 'X' || str[1] != '^' || !isdigit(str[2]) || str[3])
-		if (!(str[0] == 'X' && str[1] == '\0'))
-			return (0);
-	if (lr == 1)
-	{
-		if (ldegre == 0)
-			lc = tmp;
-		else if (ldegre == 1)
-			lb = tmp;
-		else if (ldegre == 2)
-			la = tmp;
-	}
-	else
-	{
-		if (rdegre == 0)
-			rc = tmp;
-		else if (rdegre == 1)
-			rb = tmp;
-		else if (rdegre == 2)
-			ra = tmp;
-	}
-	return (1);
-}
-
-int			Equation::check_transition(string str, int lr)
-{
-	if (lr == 2 && str[0] == '\0')
-		return (1);
-	if (str[0] == '=' && str[1] == '\0')
-		return (1);
-	else if ((str[0] == '+' || str[0] == '-') && str[1] == '\0')
-	{
-		if (str[0] == '-')
-			signe = -1;
-		return (1);
-	}
-	return (0);
+	equal++;
 }
 
 double			Equation::discriment(double a, double b, double c)
@@ -166,59 +100,23 @@ double			Equation::discriment_zero(double a, double b)
 	return ((-b) / (2 * a));
 }
 
-void			Equation::reduc()
-{
-	la -= ra;
-	lb -= rb;
-	lc -= rc;
-}
-
-void			Equation::prt_nb(int degre)
-{
-	double tmp;
-
-	cout << "Reduced form: ";
-	if (degre == 2 && la != 0)
-		cout << la << " * X^2 ";
-	if (degre >= 1 && lb != 0)
-	{
-		if (lb > 0 && degre == 2)
-			cout << "+ ";
-		else if (lb < 0 && degre == 2)
-			cout << "- ";
-		tmp = ABS(lb);
-		cout << lb << " * X";
-	}
-	if (lc != 0)
-	{
-		if (lc > 0)
-			cout << " + ";
-		else
-			cout << " - ";
-		tmp = ABS(lc);
-		cout << tmp << " = 0" << endl;
-	}
-}
-
 void			Equation::ecrire()
 {
-	degre = (ldegre > rdegre) ? ldegre : rdegre;
-	if (degre > 0)
-		prt_nb(degre);
-	if ((degre == 1 && lb != 0) || (degre == 2 && la == 0))
+	cout << degre << endl;
+	if ((degre == 1 && b != 0) || (degre == 2 && a == 0))
 		cout << "Polynomial degree: 1\nThe solution is:\n",
-		cout << "x = " << unknow(lc , lb) << endl;
+		cout << "x = " << unknow(c , b) << endl;
 	else if (degre == 2)
 	{
 		cout << "Polynomial degree: 2" << endl << "The solution is:" << endl;
-		disc = discriment(la , lb , lc);
+		disc = discriment(a , b , c);
 		if (disc > 0)
 			cout << "Discriminant is strictly positive, the two solutions are:",
-			cout << endl << "x1 = " << discriment_r1(la , lb , disc),
-			cout << "\n\n" << "x2 = " << discriment_r2(la , lb , disc) << endl;
+			cout << endl << "x1 = " << discriment_r1(a , b , disc),
+			cout << "\n\n" << "x2 = " << discriment_r2(a , b , disc) << endl;
 		else if (disc == 0)
 			cout << "Discriminant equals zero, the only one solution is :",
-			cout << endl << "x = " << discriment_zero(la , lb) << endl;
+			cout << endl << "x = " << discriment_zero(a , b) << endl;
 		else if (disc < 0)
 			cout << "Discriminant is strictly negative, no solution !!\n";
 	}

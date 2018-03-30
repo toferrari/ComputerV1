@@ -6,7 +6,7 @@
 #    By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/14 18:04:02 by tferrari          #+#    #+#              #
-#    Updated: 2017/09/28 16:17:51 by tferrari         ###   ########.fr        #
+#    Updated: 2018/03/30 11:33:19 by tferrari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = computerv1
 
 SRC_DIR = src
 
-SRC_FILE =	main.cpp computerv1.cpp sqrt.cpp
+SRC_FILE =	main.cpp computerv1.cpp sqrt.cpp lib.cpp
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILE))
 
@@ -24,6 +24,8 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(SRC_FILE:.cpp=.o))
 
 INC = -Iinclude
 
+FLAG = -Wall -Werror -Wextra
+
 all : $(NAME)
 
 $(NAME): $(OBJS)
@@ -32,7 +34,7 @@ $(NAME): $(OBJS)
 
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(OBJS_DIR)
-	@g++ -Wall -Werror -Wextra $(INC) -o $@ -c $<
+	@g++ $(INC) -o $@ -c $<
 	@echo "Fichier" $< "recompilé."
 
 clean:
