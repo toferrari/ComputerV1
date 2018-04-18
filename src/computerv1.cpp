@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 12:07:15 by tferrari          #+#    #+#             */
-/*   Updated: 2018/04/18 17:52:43 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/04/18 18:45:21 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ double			Equation::discriment_r1(double a, double b, double disc)
 	if (show == 1)
 	{
 		printf("\033[4m-b -√(Δ)\033[0m\n	2a\n");
-		printf("x1 = \033[4m-(%f) -√(%f)\033[0m\n	2 * %f\n", b, disc, a);
+		printf("x1 = \033[4m-(%.2f) -√(%.2f)\033[0m\n	2 * %.2f\n", b, disc, a);
 		printf("x1 = ");
 	}
 	return ((-b - ft_sqrt(disc)) / (2 * a));
@@ -102,7 +102,7 @@ double			Equation::discriment_r2(double a, double b, double disc)
 	if (show == 1)
 	{
 		printf("\033[4m-b +√(Δ)\033[0m\n	2a\n");
-		printf("x2 = \033[4m-(%f) +√(%f)\033[0m\n	2 * %f\n", b, disc, a);
+		printf("x2 = \033[4m-(%.2f) +√(%.2f)\033[0m\n	2 * %.2f\n", b, disc, a);
 		printf("x2 = ");
 	}
 	return ((-b + ft_sqrt(disc)) / (2 * a));

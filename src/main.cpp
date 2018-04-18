@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 15:00:00 by tferrari          #+#    #+#             */
-/*   Updated: 2018/04/18 17:52:37 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/04/18 19:00:24 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ string	space(string str)
 	tmp = "+-=";
 	for (string::iterator i = str.begin(); i != str.end(); i++)
 	{
-		ret += (tmp.find(*i) != -1 && i != str.begin()) ? " " : "";
+		if (ret[ret.length() - 1] != ' ')
+			ret += (tmp.find(*i) != -1 && i != str.begin()) ? " " : "";
 		ret += *i;
 		ret += (*i == '=') ? " " : "";
 	}
