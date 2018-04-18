@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 18:05:46 by tferrari          #+#    #+#             */
-/*   Updated: 2018/03/30 17:01:05 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/04/18 17:52:19 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ class Equation
 public:
 
 	Equation();
-	void			extrac(string *str);
+	void			degres(string str);
+	void			number(float nb, int deg);
 	void			up_equal();
 	double			discriment(double a, double b, double c);
 	double			unknow(double a, double b);
@@ -53,7 +54,7 @@ private:
 	double		b;
 	double		c;
 	int			equal;
-	int			signe;
+	float		signe;
 	int			degre;
 	int			show;
 	double		disc;
