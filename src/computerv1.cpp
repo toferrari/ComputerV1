@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 12:07:15 by tferrari          #+#    #+#             */
-/*   Updated: 2018/04/19 12:19:59 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/04/19 15:54:24 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ Equation::Equation()
 	degre = 0;
 	signe = 1.0;
 	show = 0;
-	r1 = 0;
-	r2 = 0;
 }
 
 int			Equation::bonus(string str)
