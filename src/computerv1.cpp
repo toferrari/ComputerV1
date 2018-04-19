@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 12:07:15 by tferrari          #+#    #+#             */
-/*   Updated: 2018/04/18 18:45:21 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/04/19 12:16:53 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void			Equation::degres(string str)
 
 	if ((i = str.find("X^")) != -1)
 		number(atof(str.c_str()), atoi(&str[i + 2]));
-		// degre = (degre >= (tmp = atoi(&str[i + 2]))) ? degre : tmp;
 	else if ((j = str.find("X")) != -1)
 		number(atof(str.c_str()), 1);
 	else
@@ -63,7 +62,7 @@ void			Equation::up_equal()
 	signe = -1.0;
 }
 
-double			Equation::discriment(double a, double b, double c)
+double			Equation::discriment()
 {
 	double tmp;
 
@@ -81,12 +80,12 @@ double			Equation::discriment(double a, double b, double c)
 	return ((b * b) - (4 * a * c));
 }
 
-double			Equation::unknow(double c, double b)
+double			Equation::unknow()
 {
 	return ((-c) / b);
 }
 
-double			Equation::discriment_r1(double a, double b, double disc)
+double			Equation::discriment_r1()
 {
 	if (show == 1)
 	{
@@ -97,7 +96,7 @@ double			Equation::discriment_r1(double a, double b, double disc)
 	return ((-b - ft_sqrt(disc)) / (2 * a));
 }
 
-double			Equation::discriment_r2(double a, double b, double disc)
+double			Equation::discriment_r2()
 {
 	if (show == 1)
 	{
@@ -108,31 +107,80 @@ double			Equation::discriment_r2(double a, double b, double disc)
 	return ((-b + ft_sqrt(disc)) / (2 * a));
 }
 
-double			Equation::discriment_zero(double a, double b)
+void			Equation::complex_r1()
+{
+	printf("x1 = \033[4m");
+	if (b < 0)
+		printf("%.2f ", -b);
+	else if (b > 0)
+		printf("-%.2f ", b);
+	printf("-i√(%.2f)\033[0m\n\t%.2f\n", -disc, a*2);
+}
+
+void			Equation::complex_r2()
+{
+	printf("x2 = \033[4m");
+	if (b < 0)
+		printf("%.2f ", -b);
+	else if (b > 0)
+		printf("-%.2f ", b);
+	printf("+i√(%.2f)\033[0m\n\t%.2f\n", -disc, a*2);
+}
+
+double			Equation::discriment_zero()
 {
 	return ((-b) / (2 * a));
 }
 
+void			Equation::reducted()
+{
+	printf("Reducted form : ");
+	if (a != 0)
+		printf("%.2f * X^2", a);
+	if (b > 0)
+		printf(" + %.2f * X", b);
+	else if (b < 0)
+		printf(" - %.2f * X", -b);
+	if (c > 0)
+		printf(" + %.2f", c);
+	else if (c < 0)
+		printf(" - %.2f", -c);
+	printf(" = 0\n");
+}
+
+void			Equation::execpt()
+{
+	cout << "Reducted form : 0 = 0\nPolynomial degre : " << degre,
+	cout << "\nAll number ℝ are solutions.\n";
+}
+
 void			Equation::ecrire()
 {
+	if (a == 0 && b ==0 && c == 0)
+		return (execpt());
+	reducted();
 	if ((degre == 1 && b != 0) || (degre == 2 && a == 0))
 		cout << "Polynomial degree: 1\nThe solution is:\n",
-		cout << "x = " << unknow(c , b) << endl;
+		cout << "x = " << unknow() << endl;
 	else if (degre == 2)
 	{
 		cout << "Polynomial degree: 2" << endl << "The solution is:" << endl;
-		disc = discriment(a , b , c);
+		disc = discriment();
 		if (disc > 0)
 			cout << "Discriminant is strictly positive, the two solutions are:",
-			cout << endl << "x1 = " << discriment_r1(a , b , disc),
-			cout << "\n\n" << "x2 = " << discriment_r2(a , b , disc) << endl;
+			cout << endl << "x1 = " << discriment_r1(),
+			cout <<  "\n\nx2 = " << discriment_r2() << endl;
 		else if (disc == 0)
 			cout << "Discriminant equals zero, the only one solution is :",
-			cout << endl << "x = " << discriment_zero(a , b) << endl;
+			cout << endl << "x = " << discriment_zero() << endl;
 		else if (disc < 0)
-			cout << "Discriminant is strictly negative, no solution !!\n";
+		{
+			cout << "Discriminant is strictly negative, 2 complex solutions\n",
+			complex_r1();
+			complex_r2();
+		}
 	}
 	else if (degre > 2)
-		cout << "Polynomial degree: 3\nThe polynomial degree is"
+		cout << "Polynomial degree: "<< degre <<"\nThe polynomial degree is"
 		"stricly greater than 2, I can't solve.\n";
 }
