@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 15:00:00 by tferrari          #+#    #+#             */
-/*   Updated: 2018/04/18 19:00:24 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/04/19 12:22:11 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int		main(int argc, char **argv)
 		return (error("Not well Formatted"));
 	while (++i < argc)
 		if (!equa.bonus(argv[i]))
-			return (error("bad bonus"));
+			return (error("bad bonus\n<equation> [-s]"));
 	parse(argv[1], equa);
 	return (0);
 

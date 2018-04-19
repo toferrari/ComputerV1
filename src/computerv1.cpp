@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 12:07:15 by tferrari          #+#    #+#             */
-/*   Updated: 2018/04/19 12:16:53 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/04/19 12:19:59 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int			Equation::bonus(string str)
 {
 	if (str.find("-s") != -1)
 		show = 1;
+	else
+		return (0);
 	return (1);
 }
 
