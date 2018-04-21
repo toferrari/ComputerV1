@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 12:07:15 by tferrari          #+#    #+#             */
-/*   Updated: 2018/04/19 15:54:24 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/04/21 17:21:18 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ void			Equation::execpt()
 
 void			Equation::ecrire()
 {
+	printf("a= %.2f, b = %.2f, c = %2.f, degre = %d\n", a, b, c, degre);
 	if (a == 0 && b ==0 && c == 0)
 		return (execpt());
 	reducted();

@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 15:00:00 by tferrari          #+#    #+#             */
-/*   Updated: 2018/04/19 12:22:11 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/04/21 17:29:13 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int		parse(string str, Equation equa)
 	i = -1;
 	/* Supprime les espaces */
 	str.erase(remove(str.begin(), str.end(), ' '), str.end());
+	transform(str.begin(), str.end(), str.begin(), ::toupper);
 	str = space(str);
 	tab = explode(str, tab);
 	while (tab[++i][0])
