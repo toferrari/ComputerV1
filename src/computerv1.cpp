@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 12:07:15 by tferrari          #+#    #+#             */
-/*   Updated: 2018/04/21 17:21:18 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/04/23 14:41:00 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,12 @@ void			Equation::degres(string str)
 	if ((i = str.find("X^")) != -1)
 		number(atof(str.c_str()), atoi(&str[i + 2]));
 	else if ((j = str.find("X")) != -1)
-		number(atof(str.c_str()), 1);
+		{
+			if (isdigit(str[0]))
+				number(atof(str.c_str()), 1);
+			else
+				number(1.0, 1);
+		}
 	else
 		number(atof(str.c_str()), 0);
 }
@@ -129,22 +134,23 @@ void			Equation::complex_r2()
 
 double			Equation::discriment_zero()
 {
-	return ((-b) / (2 * a));
+	double tmp;
+	return (((tmp = (-b) / (2 * a)) >= 0) ? 0.00 : tmp);
 }
 
 void			Equation::reducted()
 {
 	printf("Reducted form : ");
 	if (a != 0)
-		printf("%.2f * X^2", a);
+		printf("%.2f * X^2 ", a);
 	if (b > 0)
-		printf(" + %.2f * X", b);
+		printf("+%.2f * X ", b);
 	else if (b < 0)
-		printf(" - %.2f * X", -b);
+		printf("-%.2f * X ", -b);
 	if (c > 0)
-		printf(" + %.2f", c);
+		printf("+%.2f", c);
 	else if (c < 0)
-		printf(" - %.2f", -c);
+		printf("-%.2f", -c);
 	printf(" = 0\n");
 }
 

@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 18:05:46 by tferrari          #+#    #+#             */
-/*   Updated: 2018/04/19 12:15:39 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/04/23 13:57:53 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 #include <regex>
 
 # define ABS(x) (x < 0) ? -x : x
-# define INPUT_EQUA "(( ?[-+] ?)?([0-9]+(( ?\\* ?)?([xX](\\^[0-9]+)?)?)))+"
+# define INPUT_EQUA "(([-+])?((([0-9]+)(\\.[0-9]+)?)?((\\*?)([xX](\\^[0-9]+)?)?)))+"
 # define INPUT_EQUAL "( ?= ?)"
-# define INPUT_WRONG "([0-9]+( ?= ?)[0-9]+)"
+# define INPUT_WRONG "(([0-9]+)(\\.[0-9]+)?)(=)(([0-9]+)(\\.[0-9]+)?)"
 
 using namespace std;
 

@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 15:00:00 by tferrari          #+#    #+#             */
-/*   Updated: 2018/04/21 17:29:13 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/04/23 13:47:42 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int		parse(string str, Equation equa)
 
 	i = -1;
 	/* Supprime les espaces */
-	str.erase(remove(str.begin(), str.end(), ' '), str.end());
 	transform(str.begin(), str.end(), str.begin(), ::toupper);
 	str = space(str);
 	tab = explode(str, tab);
@@ -72,8 +71,11 @@ int		main(int argc, char **argv)
 	Equation	equa;
 	int			i;
 	string		reg;
+	string		str;
 
 	i = 1;
+	str = argv[1];
+	str.erase(remove(str.begin(), str.end(), ' '), str.end());
 	reg = string(INPUT_EQUA) + string(INPUT_EQUAL) + string(INPUT_EQUA);
 	if (argc == 1 || (argc >= 2 && argv[1][0] == '\0'))
 		return (error("No equation enter !!!"));
