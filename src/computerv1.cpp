@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 12:07:15 by tferrari          #+#    #+#             */
-/*   Updated: 2018/04/23 14:41:00 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/04/24 18:22:22 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,25 @@ void			Equation::number(float nb, int deg)
 void			Equation::degres(string str)
 {
 	int	i;
-	int j;
 	int	tmp;
 
 	if ((i = str.find("X^")) != -1)
-		number(atof(str.c_str()), atoi(&str[i + 2]));
-	else if ((j = str.find("X")) != -1)
+	{
+		if (str[1] == 'X'&& str[0] == '-')
+			number(-1.00, atoi(&str[i + 2]));
+		else if (str[1] == 'X'&& str[0] == '+')
+			number(1.00, atoi(&str[i + 2]));
+		else
+			number(atof(str.c_str()), atoi(&str[i + 2]));
+	}
+	else if (str.find("X") != -1)
 		{
-			if (isdigit(str[0]))
-				number(atof(str.c_str()), 1);
-			else
+			if (str[1] == 'X'&& str[0] == '-')
+				number(-1.0, 1);
+			else if (str[1] == 'X'&& str[0] == '+')
 				number(1.0, 1);
+			else
+				number(atof(str.c_str()), 1);
 		}
 	else
 		number(atof(str.c_str()), 0);
@@ -141,12 +149,16 @@ double			Equation::discriment_zero()
 void			Equation::reducted()
 {
 	printf("Reducted form : ");
-	if (a != 0)
-		printf("%.2f * X^2 ", a);
+	if (a == 1)
+		printf("x² ");
+	else if (a == -1)
+		printf("-x² ");
+	else if (a != 0)
+		printf("%.2fx² ", a);
 	if (b > 0)
-		printf("+%.2f * X ", b);
+		printf("+%.2fx ", b);
 	else if (b < 0)
-		printf("-%.2f * X ", -b);
+		printf("-%.2fx ", -b);
 	if (c > 0)
 		printf("+%.2f", c);
 	else if (c < 0)

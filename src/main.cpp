@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 15:00:00 by tferrari          #+#    #+#             */
-/*   Updated: 2018/04/23 13:47:42 by tferrari         ###   ########.fr       */
+/*   Updated: 2018/04/24 17:43:23 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		parse(string str, Equation equa)
 	transform(str.begin(), str.end(), str.begin(), ::toupper);
 	str = space(str);
 	tab = explode(str, tab);
-	while (tab[++i][0])
+	while (++i < tab.size())
 	{
 		if (tab[i].find("=") != -1)
 			equa.up_equal();
