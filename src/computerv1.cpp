@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 12:07:15 by tferrari          #+#    #+#             */
-/*   Updated: 2018/04/24 18:22:22 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/01/15 13:34:53 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,20 @@ double			Equation::discriment_r2()
 	return ((-b + ft_sqrt(disc)) / (2 * a));
 }
 
+// void			Equation::complex_reduce()
+// {
+// 	double a_b;
+// 	double a_disc;
+// 	double divisor;
+//
+// 	a_b = a;
+// 	a_disc = a;
+// 	divisor = (b > a) ? a : b;
+// 	while (divisor > 1 || b % divisor != 0)
+// 		divisor--;
+// 	cout << divisor << endl;
+// }
+
 void			Equation::complex_r1()
 {
 	printf("x1 = \033[4m");
@@ -194,6 +208,7 @@ void			Equation::ecrire()
 			cout << endl << "x = " << discriment_zero() << endl;
 		else if (disc < 0)
 		{
+			// complex_reduce();
 			cout << "Discriminant is strictly negative, 2 complex solutions\n",
 			complex_r1();
 			complex_r2();

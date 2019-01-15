@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 15:00:00 by tferrari          #+#    #+#             */
-/*   Updated: 2018/04/24 17:43:23 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/01/15 11:43:26 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 int		error(string str)
 {
 	cout << str << endl;
+	return (0);
+}
+
+int		get_info()
+{
+	cout << "No equation enter.\n\n";
+	cout << "./computerv1 [equation] [option]\n\n";
+	cout << "-s show details solve\n";
 	return (0);
 }
 
@@ -51,7 +59,6 @@ int		parse(string str, Equation equa)
 	vector<std::string>	tab;
 
 	i = -1;
-	/* Supprime les espaces */
 	transform(str.begin(), str.end(), str.begin(), ::toupper);
 	str = space(str);
 	tab = explode(str, tab);
@@ -73,7 +80,8 @@ int		main(int argc, char **argv)
 	string		reg;
 	string		str;
 
-	i = 1;
+	if (argc == 1)
+		return (get_info());
 	str = argv[1];
 	str.erase(remove(str.begin(), str.end(), ' '), str.end());
 	reg = string(INPUT_EQUA) + string(INPUT_EQUAL) + string(INPUT_EQUA);
@@ -82,10 +90,10 @@ int		main(int argc, char **argv)
 	if (!regex_match(argv[1], regex(reg)) ||
 		regex_match(argv[1],  regex(INPUT_WRONG)))
 		return (error("Not well Formatted"));
+	i = 1;
 	while (++i < argc)
 		if (!equa.bonus(argv[i]))
 			return (error("bad bonus\n<equation> [-s]"));
 	parse(argv[1], equa);
 	return (0);
-
 }
