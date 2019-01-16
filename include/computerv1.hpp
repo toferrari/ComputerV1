@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 18:05:46 by tferrari          #+#    #+#             */
-/*   Updated: 2019/01/15 13:34:38 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/01/16 13:44:09 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define ABS(x) (x < 0) ? -x : x
 # define INPUT_EQUA "([+-]?(([0-9]+)(\\.[0-9]+)?((\\*?)([xX](\\^[0-9]+)?)?)|[Xx](\\^[0-9])?))+"
 # define INPUT_EQUAL "(=)"
-# define INPUT_WRONG "(([0-9]+)(\\.[0-9]+)?)(=)(([0-9]+)(\\.[0-9]+)?)"
+# define INPUT_WRONG "(([-+])?([0-9]+)(\\.[0-9]+)?)(=)(([-+])?([0-9]+)(\\.[0-9]+)?)"
 
 using namespace std;
 
@@ -45,13 +45,15 @@ public:
 	double			discriment_r1();
 	double			discriment_r2();
 	double			discriment_zero();
-	void			complex_r1();
-	void			complex_r2();
+	void			complex_r1(double racine_disc_reduce);
+	void			complex_r2(double racine_disc_reduce);
 	void			execpt();
 	void			reducted();
 	int				bonus(string str);
 	void			ecrire();
-	// void			complex_reduce();
+	void			complex_reduce();
+	int				pgcd(double x, double y);
+	int				reduce_racine();
 
 private:
 

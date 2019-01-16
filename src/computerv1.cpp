@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 12:07:15 by tferrari          #+#    #+#             */
-/*   Updated: 2019/01/15 13:34:53 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/01/16 14:06:56 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,12 @@ void			Equation::number(float nb, int deg)
 void			Equation::degres(string str)
 {
 	int	i;
-	int	tmp;
 
 	if ((i = str.find("X^")) != -1)
 	{
 		if (str[1] == 'X'&& str[0] == '-')
 			number(-1.00, atoi(&str[i + 2]));
-		else if (str[1] == 'X'&& str[0] == '+')
+		else if ((str[1] == 'X'&& str[0] == '+' )|| str[0] == 'X')
 			number(1.00, atoi(&str[i + 2]));
 		else
 			number(atof(str.c_str()), atoi(&str[i + 2]));
@@ -61,7 +60,7 @@ void			Equation::degres(string str)
 		{
 			if (str[1] == 'X'&& str[0] == '-')
 				number(-1.0, 1);
-			else if (str[1] == 'X'&& str[0] == '+')
+			else if ((str[1] == 'X'&& str[0] == '+' )|| str[0] == 'X')
 				number(1.0, 1);
 			else
 				number(atof(str.c_str()), 1);
@@ -120,38 +119,126 @@ double			Equation::discriment_r2()
 	return ((-b + ft_sqrt(disc)) / (2 * a));
 }
 
-// void			Equation::complex_reduce()
-// {
-// 	double a_b;
-// 	double a_disc;
-// 	double divisor;
-//
-// 	a_b = a;
-// 	a_disc = a;
-// 	divisor = (b > a) ? a : b;
-// 	while (divisor > 1 || b % divisor != 0)
-// 		divisor--;
-// 	cout << divisor << endl;
-// }
-
-void			Equation::complex_r1()
+int				Equation::pgcd(double x, double y)
 {
-	printf("x1 = \033[4m");
-	if (b < 0)
-		printf("%.2f ", -b);
-	else if (b > 0)
-		printf("-%.2f ", b);
-	printf("-i√(%.2f)\033[0m\n\t%.2f\n", -disc, a*2);
+	if (y == 0)
+		return (x);
+	return (pgcd(y, fmod(x,y)));
 }
 
-void			Equation::complex_r2()
+int				Equation::reduce_racine()
 {
-	printf("x2 = \033[4m");
-	if (b < 0)
-		printf("%.2f ", -b);
-	else if (b > 0)
-		printf("-%.2f ", b);
-	printf("+i√(%.2f)\033[0m\n\t%.2f\n", -disc, a*2);
+	int i;
+	int j;
+
+	i = 1;
+	while (i * i <= abs(disc))
+	{
+		if (i * i == abs(disc))
+		{
+			disc = 0;
+			return (i);
+		}
+		i++;
+	}
+	j = 1;
+	i = 1;
+	while (i * i * j <= abs(disc))
+	{
+		while (i * i * j <= abs(disc))
+		{
+			if (i * i * j == abs(disc))
+			{
+				disc /= i * i;
+				return (i);
+			}
+			i++;
+		}
+		i = 1;
+		j++;
+	}
+	return (0);
+}
+
+void			Equation::complex_reduce()
+{
+	double racine_disc_reduce;
+
+	racine_disc_reduce = reduce_racine();
+	complex_r1(racine_disc_reduce);
+	complex_r2(racine_disc_reduce);
+}
+
+void			Equation::complex_r1(double racine_disc_reduce)
+{
+	if (show == 1)
+	{
+		printf("x1 = \033[4m");
+		if (b < 0)
+			printf("%.2f ", -b);
+		else if (b > 0)
+			printf("-%.2f ", b);
+		printf("-i√(%.2f)\033[0m\n\t%.2f\n\n", -disc * racine_disc_reduce * racine_disc_reduce, a*2);
+		printf("x1 = \033[4m");
+		if (b < 0)
+			printf("%.2f ", -b);
+		else if (b > 0)
+			printf("-%.2f ", b);
+		printf("-i√(%.2f * %.2f)\033[0m\n\t%.2f\n\n", racine_disc_reduce * racine_disc_reduce, -disc, a*2);
+		printf("x1 = \033[4m");
+		if (b < 0)
+			printf("%.2f ", -b);
+		else if (b > 0)
+			printf("-%.2f ", b);
+		printf("-i%.2f√(%.2f)\033[0m\n\t%.2f\n\n", racine_disc_reduce, -disc, a*2);
+	}
+	printf("x1 = ");
+	if (b / (2 * a) < 0)
+		printf("%.2f ", -b / (2 * a));
+	else if (b / (2 * a) > 0)
+		printf("-%.2f ", b / (2 * a));
+	if (racine_disc_reduce / (2 * a) < 0)
+		printf("+ i%.2f√(%.2f)\n\n", (racine_disc_reduce / abs(2 * a)), -disc);
+	else if (racine_disc_reduce > 0)
+		printf("- i%.2f√(%.2f)\n\n", (racine_disc_reduce / (2 * a)), -disc);
+	else
+		printf("- i%.2f√(%.2f)\n\n", (1 / (2 * a)), -disc);
+}
+
+void			Equation::complex_r2(double racine_disc_reduce)
+{
+	if (show == 1)
+	{
+		printf("x2 = \033[4m");
+		if (b < 0)
+			printf("%.2f ", -b);
+		else if (b > 0)
+			printf("-%.2f ", b);
+		printf("+ i√(%.2f)\033[0m\n\t%.2f\n\n", -disc * racine_disc_reduce * racine_disc_reduce, a*2);
+		printf("x2 = \033[4m");
+		if (b < 0)
+			printf("%.2f ", -b);
+		else if (b > 0)
+			printf("-%.2f ", b);
+		printf("+ i√(%.2f * %.2f)\033[0m\n\t%.2f\n\n", racine_disc_reduce * racine_disc_reduce, -disc, a*2);
+		printf("x2 = \033[4m");
+		if (b < 0)
+			printf("%.2f ", -b);
+		else if (b > 0)
+			printf("-%.2f ", b);
+		printf("+ i%.2f√(%.2f)\033[0m\n\t%.2f\n\n", racine_disc_reduce, -disc, a*2);
+	}
+	printf("x2 = ");
+	if (b / (2 * a) < 0)
+		printf("%.2f ", -b / (2 * a));
+	else if (b / (2 * a) > 0)
+		printf("-%.2f ", b / (2 * a));
+	if (racine_disc_reduce / (2 * a) < 0)
+		printf("- i%.2f√(%.2f)\n\n", (racine_disc_reduce / abs(2 * a)), -disc);
+	else if (racine_disc_reduce > 0)
+		printf("+ i%.2f√(%.2f)\n\n", (racine_disc_reduce / (2 * a)), -disc);
+	else
+		printf("+ i%.2f√(%.2f)\n\n", (1 / (2 * a)), -disc);
 }
 
 double			Equation::discriment_zero()
@@ -182,12 +269,17 @@ void			Equation::reducted()
 
 void			Equation::execpt()
 {
-	cout << "Reducted form : 0 = 0\nPolynomial degre : " << degre,
+	cout << "Reducted form : x = x\nPolynomial degre : " << degre,
 	cout << "\nAll number ℝ are solutions.\n";
 }
 
 void			Equation::ecrire()
 {
+	if (degre == 0)
+	{
+		printf("Invalid equation.\n");
+		return;
+	}
 	printf("a= %.2f, b = %.2f, c = %2.f, degre = %d\n", a, b, c, degre);
 	if (a == 0 && b ==0 && c == 0)
 		return (execpt());
@@ -208,10 +300,10 @@ void			Equation::ecrire()
 			cout << endl << "x = " << discriment_zero() << endl;
 		else if (disc < 0)
 		{
-			// complex_reduce();
 			cout << "Discriminant is strictly negative, 2 complex solutions\n",
-			complex_r1();
-			complex_r2();
+			complex_reduce();
+			// complex_r1();
+			// complex_r2();
 		}
 	}
 	else if (degre > 2)
